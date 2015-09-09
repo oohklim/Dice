@@ -1,6 +1,7 @@
 Die oddRow;
 Die evenRow;
 int side = 500;
+int sum;
 
 void setup()
 {
@@ -21,7 +22,7 @@ void draw()
       }
   }
   //evenRows
-  for(int y = side/10; y < side; y = y + side/5)
+  for(int y = side/10; y < side - side/5; y = y + side/5)
   {
     for(int x = side/10; x < side; x = x + side/5)
       {
@@ -34,6 +35,7 @@ void draw()
 void mousePressed()
 {
   redraw();
+  sum = 0;
 }
 
 class Die //models one single dice cube
@@ -43,13 +45,59 @@ class Die //models one single dice cube
   {
     myX = x;
     myY = y;
+    value = (int)(Math.random()*6) + 1;
   }
   void roll()
   {
-    value = (int)(Math.random()*6) + 1;
+    sum = sum + value;
   }
   void show()
   {
+    fill(255);
     rect(myX, myY, side/10, side/10);
+    //center of dice, diameter
+    int centerX = (myX + side/20);
+    int centerY = (myY + side/20);
+    int d = side/100;
+    fill(0);
+    if(value == 1)
+    {
+      ellipse(centerX, centerY, d, d);
+    }
+    else if(value == 2)
+    {
+      ellipse(centerX - side/40, centerY - side/40, d, d);
+      ellipse(centerX + side/40, centerY + side/40, d, d);
+    }
+    else if(value == 3)
+    {
+      ellipse(centerX, centerY, d, d);
+      ellipse(centerX - side/40, centerY - side/40, d, d);
+      ellipse(centerX + side/40, centerY + side/40, d, d);
+    }
+    else if(value == 4)
+    {
+      ellipse(centerX - side/40, centerY - side/40, d, d);
+      ellipse(centerX - side/40, centerY + side/40, d, d);
+      ellipse(centerX + side/40, centerY - side/40, d, d);
+      ellipse(centerX + side/40, centerY + side/40, d, d);
+    }
+    else if(value == 5)
+    {
+      ellipse(centerX, centerY, d, d);
+      ellipse(centerX - side/40, centerY - side/40, d, d);
+      ellipse(centerX - side/40, centerY + side/40, d, d);
+      ellipse(centerX + side/40, centerY - side/40, d, d);
+      ellipse(centerX + side/40, centerY + side/40, d, d);
+    }
+    else if(value == 6)
+    {
+      ellipse(centerX - side/40, centerY, d, d);
+      ellipse(centerX + side/40, centerY, d, d);
+      ellipse(centerX - side/40, centerY - side/40, d, d);
+      ellipse(centerX + side/40, centerY - side/40, d, d);
+      ellipse(centerX - side/40, centerY + side/40, d, d);
+      ellipse(centerX + side/40, centerY + side/40, d, d);
+    }
   }
 }
