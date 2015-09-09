@@ -3,6 +3,8 @@ Die evenRow;
 //dimensions of all the die 
 int dimension = 500;
 int sum;
+float h = 1;
+float j = 5;
 
 void setup()
 {
@@ -12,11 +14,12 @@ void setup()
   stroke(0);
   textSize(20);
   textAlign(CENTER);
+  colorMode(HSB, 100);
 }
 
 void draw()
 {
-  background(125);
+  background(h, 50, 90);
   //oddRows
   for (int y = 0; y < dimension; y = y + dimension/5)
   {
@@ -36,6 +39,11 @@ void draw()
     }
   }
   text("Total Roll: " + sum, dimension/2, dimension + 30);
+  h = h + j;
+  if (h > 100 || h == 1)
+  {
+    j = j * -1;
+  }
 }
 
 void mousePressed()
@@ -56,7 +64,7 @@ class Die
   }
   void show()
   {
-    fill(255);
+    fill(0, 0, 100);
     rect(myX, myY, dimension/10, dimension/10);
     //center of dice, diameter
     int centerX = (myX + dimension/20);
@@ -84,4 +92,3 @@ class Die
     }
   }
 }
-
