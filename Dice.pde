@@ -1,35 +1,41 @@
 Die oddRow;
 Die evenRow;
-int side = 500;
+//dimensions of all the die 
+int dimension = 500;
 int sum;
 
 void setup()
 {
   noLoop();
-  size(side, side);
+  //extra space below die for text
+  size(dimension, dimension + 50);
   stroke(0);
+  textSize(20);
+  textAlign(CENTER);
 }
 
 void draw()
 {
+  background(125);
   //oddRows
-  for (int y = 0; y < side; y = y + side/5)
+  for (int y = 0; y < dimension; y = y + dimension/5)
   {
-    for (int x = 0; x < side; x = x + side/5)
+    for (int x = 0; x < dimension; x = x + dimension/5)
     {
       oddRow = new Die(x, y);
       oddRow.show();
     }
   }
   //evenRows
-  for (int y = side/10; y < side - side/5; y = y + side/5)
+  for (int y = dimension/10; y < dimension; y = y + dimension/5)
   {
-    for (int x = side/10; x < side; x = x + side/5)
+    for (int x = dimension/10; x < dimension; x = x + dimension/5)
     {
       evenRow = new Die(x, y);
       evenRow.show();
     }
   }
+  text("Total Roll: " + sum, dimension/2, dimension + 30);
 }
 
 void mousePressed()
@@ -38,27 +44,24 @@ void mousePressed()
   sum = 0;
 }
 
-class Die //models one single dice cube
+class Die
 {
   int value, myX, myY;
-  Die(int x, int y) //constructor
+  Die(int x, int y)
   {
     myX = x;
     myY = y;
     value = (int)(Math.random()*6) + 1;
-  }
-  void roll()
-  {
     sum = sum + value;
   }
   void show()
   {
     fill(255);
-    rect(myX, myY, side/10, side/10);
+    rect(myX, myY, dimension/10, dimension/10);
     //center of dice, diameter
-    int centerX = (myX + side/20);
-    int centerY = (myY + side/20);
-    int d = side/100;
+    int centerX = (myX + dimension/20);
+    int centerY = (myY + dimension/20);
+    int d = dimension/100;
     fill(0);
     if (value == 1 || value == 3 || value == 5)
     {
@@ -66,18 +69,18 @@ class Die //models one single dice cube
     }
     if (value != 1)
     {
-      ellipse(centerX - side/40, centerY - side/40, d, d);
-      ellipse(centerX + side/40, centerY + side/40, d, d);
+      ellipse(centerX - dimension/40, centerY - dimension/40, d, d);
+      ellipse(centerX + dimension/40, centerY + dimension/40, d, d);
     }
     if (value >= 4)
     {
-      ellipse(centerX - side/40, centerY + side/40, d, d);
-      ellipse(centerX + side/40, centerY - side/40, d, d);
+      ellipse(centerX - dimension/40, centerY + dimension/40, d, d);
+      ellipse(centerX + dimension/40, centerY - dimension/40, d, d);
     }
     if (value == 6)
     {
-      ellipse(centerX - side/40, centerY, d, d);
-      ellipse(centerX + side/40, centerY, d, d);
+      ellipse(centerX - dimension/40, centerY, d, d);
+      ellipse(centerX + dimension/40, centerY, d, d);
     }
   }
 }
